@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-
+const notes = require('./db/db.json')
 const PORT = process.env.PORT || 3001;
 
 const app = express();
@@ -15,9 +15,24 @@ app.get('/', (req, res) =>
 );
 
 // GET request for reviews
-app.get('/api/example', (req, res) => {
+app.get('/api/notes', (req, res) => {
   res.status(200).json(reviews);
+  return res.json(notes)
 });
+
+app.get('/notes', (req, res) =>
+  res.sendFile(path.join(__dirname, 'public/notes.html'))
+);
+
+app.post('api/notes', (req, res) =>
+// pull out data from rq.body
+
+//push to the db array (that we're importing)
+
+//write to file (db.json)
+  res.status(200).json(reviews)
+);
+
 
 // POST request to add a review
 // NOTE: Data persistence isn't set up yet, so this will only exist in memory until we implement it
